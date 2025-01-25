@@ -13,6 +13,3 @@ def get_mask_account(account_number: Union[int]) -> Union[str]:
     account_number_str = str(account_number)
     account_mask = "**", account_number_str[-4:]
     return "".join(account_mask)
-
-
-
