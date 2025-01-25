@@ -1,5 +1,4 @@
-from masks import get_mask_account
-from masks import get_mask_card_number
+from src.masks import get_mask_account, get_mask_card_number
 
 
 def mask_account_card(data: str) -> str:
@@ -12,6 +11,7 @@ def mask_account_card(data: str) -> str:
     else:
         masked_numbers = get_mask_card_number(int(numbers))
     return " ".join(card_or_account_type) + " " + masked_numbers
+
 
 print(mask_account_card("Счет 64686473678894779589"))
 print(mask_account_card("Visa Classic 6831982476737658"))
