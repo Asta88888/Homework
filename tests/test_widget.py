@@ -31,7 +31,9 @@ def test_mask_account_card_invalid_length(type_data):
 
 @pytest.fixture
 def date():
-    return ["2024-03-11T02:26:18.671407"]
+    return ["2024-03-11T02:26:18.671407",
+            "2008-12-10T02:26:18.671407",
+            "1987-03-20T02:26:18.671407"]
 
 
 @pytest.mark.parametrize("date, expected", [("2024-03-11T02:26:18.671407", "11.03.2024"),
@@ -41,7 +43,7 @@ def test_get_date(date, expected):
     assert get_date(date) == expected
 
 
-
 def test_get_date_invalid():
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError) as error:
         get_date("")
+    assert str(error.value) == "Дата не может быть пустой"
