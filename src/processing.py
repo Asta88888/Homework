@@ -1,6 +1,3 @@
-import pytest
-
-
 def filter_by_state(transactions_list: list[dict], state: str = "EXECUTED") -> list[dict]:
     """Функция возвращает новый список словарей, содержащий только те словари,
     у которых ключ state соответствует указанному значению"""
