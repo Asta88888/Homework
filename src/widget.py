@@ -7,6 +7,8 @@ def mask_account_card(data: str) -> str:
     split_info = data.split(" ")
     numbers = split_info[-1]
     card_or_account_type = split_info[:-1]
+    if len(numbers) < 16:
+        raise ValueError("Неверное количество чисел")
     if data.startswith("Счет"):
         masked_numbers = get_mask_account(int(numbers))
     else:
@@ -20,6 +22,8 @@ print(mask_account_card("Visa Classic 6831982476737658"))
 
 def get_date(incorrect_date: str) -> str:
     """Функция выводит дату в формате ДД.ММ.ГГГГ"""
+    if not incorrect_date:
+        raise ValueError("Дата не может быть пустой")
     clear_date = incorrect_date[0:10]
     year, month, day = clear_date.split("-")
     correct_date = day, month, year
