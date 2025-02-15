@@ -63,7 +63,7 @@ for _ in range(2):
 
 
 def transaction_descriptions(transactions_list: list[dict]) -> Iterator:
-    """"""
+    """Функция возвращает описание каждой операции по очереди"""
     for description in transactions_list:
         yield description["description"]
 
@@ -71,3 +71,13 @@ def transaction_descriptions(transactions_list: list[dict]) -> Iterator:
 descriptions = transaction_descriptions(transactions)
 for _ in range(5):
     print(next(descriptions))
+
+
+def card_number_generator(start, stop):
+    """Функция генерирует номера карт в диапазоне от 0000 0000 0000 0001 до 9999 9999 9999 9999."""
+    for number in range(start, stop + 1):
+        yield f"{number:016d}"[:4] + " " + f"{number:016d}"[4:8] + " " + f"{number:016d}"[8:12] + " " + f"{number:016d}"[12:16]
+
+
+for card_number in card_number_generator(1, 999):
+    print(card_number)
