@@ -1,15 +1,10 @@
-from typing import Iterator
+import pytest
+from src.generators import filter_by_currency, transaction_descriptions, card_number_generator
 
 
-def filter_by_currency(transactions_list: list[dict], currency: str) -> Iterator[dict]:
-    """Функция возвращает итератор, поочередно выдающий транзакции,
-    с валютой соответствующей заданной"""
-    for transaction in transactions_list:
-        if transaction["operationAmount"]["currency"]["code"] == currency:
-            yield transaction
-
-
-transactions = [
+@pytest.fixture
+def transactions():
+    return [
     {
         "id": 939719570,
         "state": "EXECUTED",
@@ -57,29 +52,42 @@ transactions = [
     },
 ]
 
-usd_transactions = filter_by_currency(transactions, "USD")
-for _ in range(2):
-    print(next(usd_transactions))
+
+def test_filter_by_currency(transactions, currency: str = "USD"):
+    generator = filter_by_currency(transactions, currency)
+    assert next(generator) ==     {
+        "id": 939719570,
+        "state": "EXECUTED",
+        "date": "2018-06-30T02:08:58.425572",
+        "operationAmount": {"amount": "9824.07", "currency": {"name": "USD", "code": "USD"}},
+        "description": "Перевод организации",
+        "from": "Счет 75106830613657916952",
+        "to": "Счет 11776614605963066702",
+    }
 
 
-def transaction_descriptions(transactions_list: list[dict]) -> Iterator:
-    """Функция возвращает описание каждой операции по очереди"""
-    for description in transactions_list:
-        yield description["description"]
+def test_filter_by_currency_rub(transactions, currency: str = "RUB"):
+    generator = filter_by_currency(transactions, currency)
+    assert next(generator) ==     {
+        "id": 873106923,
+        "state": "EXECUTED",
+        "date": "2019-03-23T01:09:46.296404",
+        "operationAmount": {"amount": "43318.34", "currency": {"name": "руб.", "code": "RUB"}},
+        "description": "Перевод со счета на счет",
+        "from": "Счет 44812258784861134719",
+        "to": "Счет 74489636417521191160",
+    }
+
+@pytest.mark.parametrize("description", ["Перевод организации"])
+def test_transaction_descriptions(transactions, description):
+    generator = transaction_descriptions(transactions)
+    assert next(generator) == description
 
 
-descriptions = transaction_descriptions(transactions)
-for _ in range(5):
-    print(next(descriptions))
+@pytest.mark.parametrize('start, stop, expected', [
+    (1, 3, ['0000 0000 0000 0001', '0000 0000 0000 0002', '0000 0000 0000 0003']),
+    (123, 124, ['0000 0000 0000 0123', '0000 0000 0000 0124'])])
+def test_card_number_generator(start: int, stop: int, expected: list) -> None:
+    generator = list(card_number_generator(start, stop))
+    assert generator == expected
 
-
-def card_number_generator(start: int, stop: int) -> Iterator:
-    """Функция генерирует номера карт в диапазоне от 0000 0000 0000 0001 до 9999 9999 9999 9999."""
-    for number in range(start, stop + 1):
-        yield f"{number:016d}"[:4] + " " + f"{number:016d}"[4:8] + " " + f"{number:016d}"[
-            8:12
-        ] + " " + f"{number:016d}"[12:16]
-
-
-for card_number in card_number_generator(1, 5):
-    print(card_number)
