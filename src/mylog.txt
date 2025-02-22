@@ -1,0 +1,41 @@
+my_function ok 
+Результат: 3
+
+my_function error: TypeError.Inputs: (1, '2'), {}
+my_function ok 
+Результат: 3
+
+my_function ok 
+Результат: 3
+
+my_function error: TypeError.Inputs: (1, '2'), {}
+my_function ok 
+Результат: 3
+
+my_function ok 
+Результат: 3
+
+my_function ok 
+Результат: 3
+
+my_function ok 
+Результат: 6
+
+my_function ok 
+Результат: 3
+
+my_function ok 
+Результат: 3
+
+my_function ok 
+Результат: 3
+
+my_function ok 
+Результат: 3
+
+my_function ok 
+Результат: 3
+
+my_function ok 
+Результат: 3
+
