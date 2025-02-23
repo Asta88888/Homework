@@ -32,7 +32,7 @@ def log(filename: Optional[str] = None) -> Callable:
                 if not filename:
                     print(error_message)
                 else:
-                    with open(filename, "a", encoding="utf") as file:
+                    with open(filename, "a", encoding="utf8") as file:
                         file.write(error_message)
                     print(error_message)
                 raise e
