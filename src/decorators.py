@@ -20,21 +20,22 @@ def log(filename: Optional[str] = None) -> Callable:
                 print(f"Конец выполнения функции: {func.__name__}")
                 print(f"Время выполнения функции: {durations:.7f}")
                 log_message = f"{func.__name__} ok \nРезультат: {result}\n"
-                if filename:
+                if not filename:
+                    print(f"{log_message}\n")
+                else:
                     with open(filename, "a", encoding="utf8") as file:
                         file.write(f"{log_message}\n")
-                else:
-                    print(f"{log_message}\n")
                 return result
+
             except Exception as e:
                 error_message = f"{func.__name__} error: {type(e).__name__}.Inputs: {args}, {kwargs}\n"
-                if filename:
+                if not filename:
+                    print(error_message)
+                else:
                     with open(filename, "a", encoding="utf") as file:
                         file.write(error_message)
-                else:
                     print(error_message)
-                raise
-
+                raise e
         return wrapper
 
     return decorator
@@ -46,4 +47,4 @@ if __name__ == "__main__":
     def my_function(x: int, y: int) -> int:
         return x + y
 
-    my_function(1, 2)
+    print(my_function(1, 2))
