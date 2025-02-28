@@ -1,7 +1,7 @@
 import json
 
 
-def get_transactions(path: str) -> list[dict[str]]:
+def get_transactions(path_file: str) -> list[dict[str]]:
     """Функция принимающая путь до JSON-файла и возвращает список словарей с
     данными о финансовых транзакциях"""
     try:
@@ -10,10 +10,10 @@ def get_transactions(path: str) -> list[dict[str]]:
                 transactions_data = json.load(transactions_file)
             except json.JSONDecodeError:
                 print("File empty")
-                return False
+                return []
     except FileNotFoundError:
         print("File not found")
-        return False
+        return []
     return transactions_data
 
 
