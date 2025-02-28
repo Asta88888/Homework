@@ -3,9 +3,9 @@ import requests
 from dotenv import load_dotenv
 import json
 
-API_KEY = "iXXVrkEY95BjnksjiYyitcafL9arEK01"
+
 load_dotenv()
-# API_KEY = os.getenv("API_KEY")
+API_KEY = os.getenv("API_KEY")
 url = "https://api.apilayer.com/exchangerates_data/convert"
 
 def conversion(transaction: dict) -> float:
@@ -40,6 +40,8 @@ transactions = {'id': 490100847, 'state':
                    'description': 'Перевод с карты на карту',
                    'from': 'Visa Gold 8326537236216459',
                    'to': 'MasterCard 6783917276771847'}
+
+
 if __name__ == "__main__":
     transaction_amount = conversion(transactions)
     print(transaction_amount)
