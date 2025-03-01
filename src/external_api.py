@@ -9,7 +9,10 @@ API_KEY = os.getenv("API_KEY")
 url = "https://api.apilayer.com/exchangerates_data/convert"
 
 def conversion(transaction: dict) -> float:
-    """"""
+    """Функция возвращает сумму транзакции, если транзакция
+    была в USD или EUR, происходит обращение к внешнему API
+    для получения текущего курса валют и конвертации суммы
+    операции в рубли в рублях"""
     amount = 0
     currency = transaction["operationAmount"]["currency"]["code"]
     amount_transaction = transaction["operationAmount"]["amount"]

@@ -1,11 +1,11 @@
 import json
-
+import os
 
 def get_transactions(path_file: str) -> list[dict[str]]:
     """Функция принимающая путь до JSON-файла и возвращает список словарей с
     данными о финансовых транзакциях"""
     try:
-        with open(path, "r", encoding="utf8") as transactions_file:
+        with open(path_file, "r", encoding="utf8") as transactions_file:
             try:
                 transactions_data = json.load(transactions_file)
             except json.JSONDecodeError:
@@ -18,6 +18,6 @@ def get_transactions(path_file: str) -> list[dict[str]]:
 
 
 if __name__ == "__main__":
-    path = "C:/Users/User/PycharmProjects/Homework_Project_1/data/operations.json"
+    path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data", "operations.json")
     transactions = get_transactions(path)
     print(transactions)
