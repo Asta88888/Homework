@@ -1,3 +1,19 @@
-2025-03-04 02:59:01,109 utils.py DEBUG: Debug message
-2025-03-04 02:59:01,109 utils.py INFO: Выполняется чтение JSON-файла с транзакциями
-2025-03-04 02:59:01,110 utils.py INFO: Получены транзакции из JSON-файла
+2025-03-06 17:44:52,238 utils.py DEBUG: Debug message
+2025-03-06 17:44:52,365 utils.py INFO: Выполняется чтение JSON-файла с транзакциями
+2025-03-06 17:44:52,365 utils.py INFO: Получены транзакции из JSON-файла
+2025-03-06 17:44:52,368 utils.py INFO: Выполняется чтение JSON-файла с транзакциями
+2025-03-06 17:44:52,368 utils.py ERROR: JSON-файл не найден
+2025-03-06 17:44:52,370 utils.py INFO: Выполняется чтение JSON-файла с транзакциями
+2025-03-06 17:44:52,371 utils.py ERROR: Ошибка чтения JSON-файла
+Traceback (most recent call last):
+  File "C:\Users\User\PycharmProjects\Homework_Project_1\src\utils.py", line 28, in get_transactions
+    transactions_data = json.load(transactions_file)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\unittest\mock.py", line 1167, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\unittest\mock.py", line 1171, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\unittest\mock.py", line 1226, in _execute_mock_call
+    raise effect
+json.decoder.JSONDecodeError: Error: line 1 column 2 (char 1)
