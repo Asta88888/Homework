@@ -18,6 +18,7 @@ console_handler = logging.StreamHandler()
 console_handler.setFormatter(file_formatter)
 logger.addHandler(console_handler)
 
+
 def get_transactions(path_file: str) -> list[dict[str, Any]]:
     """Функция принимающая путь до JSON-файла и возвращает список словарей с
     данными о финансовых транзакциях"""
@@ -27,7 +28,7 @@ def get_transactions(path_file: str) -> list[dict[str, Any]]:
             try:
                 transactions_data = json.load(transactions_file)
             except json.JSONDecodeError as e:
-                logger.error("Ошибка чтения JSON-файла", exc_info=True)
+                logger.error(f"Ошибка чтения JSON-файла", exc_info=True)
                 print("File empty")
                 return []
     except FileNotFoundError:
