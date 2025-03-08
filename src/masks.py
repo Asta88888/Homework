@@ -17,11 +17,13 @@ console_handler = logging.StreamHandler()
 console_handler.setFormatter(file_formatter)
 logger.addHandler(console_handler)
 
+
 def get_mask_card_number(card_number: Union[int]) -> Union[str, None]:
     """Функция получает номер карты и возвращает ее маску"""
+    logger.info("Выполняется проверка на корректность номера карты")
     try:
-        logger.info("Выполняется проверка на корректность номера карты")
         if len(str(card_number)) != 16:
+            logger.error("Ошибка: Некорректная длина номера карты")
             raise ValueError("Некорректная длина номера карты")
 
         card_number_str = str(card_number)
@@ -30,18 +32,18 @@ def get_mask_card_number(card_number: Union[int]) -> Union[str, None]:
         return " ".join(card_mask)
     except ValueError as e:
         logger.error(f"Ошибка: {e}")
-        return None
+        raise e
     except Exception as e:
         logger.error(f"Неизвестная ошибка: {e}")
-        return None
+        raise e
 
 
 def get_mask_account(account_number: Union[int]) -> Union[str, None]:
     """Функция получает номер аккаунта и возвращает его маску"""
+    logger.info("Выполняется проверка номера аккаунта")
     try:
-        logger.info("Выполняется проверка номера аккаунта")
-
         if len(str(account_number)) != 20:
+            logger.error("Ошибка: Некорректная длина номера аккаунта")
             raise ValueError("Некорректная длина номера аккаунта")
         account_number_str = str(account_number)
         account_mask = "**", account_number_str[-4:]
@@ -49,10 +51,10 @@ def get_mask_account(account_number: Union[int]) -> Union[str, None]:
         return "".join(account_mask)
     except ValueError as e:
         logger.error(f"Ошибка: {e}")
-        return None
+        raise e
     except Exception as e:
         logger.error(f"Неизвестная ошибка: {e}")
-        return None
+        raise e
 
 
 if __name__ == "__main__":
