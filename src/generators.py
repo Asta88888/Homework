@@ -5,73 +5,27 @@ def filter_by_currency(transactions_list: list[dict], currency: str) -> Iterator
     """Функция возвращает итератор, поочередно выдающий транзакции,
     с валютой соответствующей заданной"""
     for transaction in transactions_list:
-        if transaction["operationAmount"]["currency"]["code"] == currency:
+        if transaction.get("currency_code", {}) == currency:
             yield transaction
 
 
-transactions = [
-    {
-        "id": 939719570,
-        "state": "EXECUTED",
-        "date": "2018-06-30T02:08:58.425572",
-        "operationAmount": {"amount": "9824.07", "currency": {"name": "USD", "code": "USD"}},
-        "description": "Перевод организации",
-        "from": "Счет 75106830613657916952",
-        "to": "Счет 11776614605963066702",
-    },
-    {
-        "id": 142264268,
-        "state": "EXECUTED",
-        "date": "2019-04-04T23:20:05.206878",
-        "operationAmount": {"amount": "79114.93", "currency": {"name": "USD", "code": "USD"}},
-        "description": "Перевод со счета на счет",
-        "from": "Счет 19708645243227258542",
-        "to": "Счет 75651667383060284188",
-    },
-    {
-        "id": 873106923,
-        "state": "EXECUTED",
-        "date": "2019-03-23T01:09:46.296404",
-        "operationAmount": {"amount": "43318.34", "currency": {"name": "руб.", "code": "RUB"}},
-        "description": "Перевод со счета на счет",
-        "from": "Счет 44812258784861134719",
-        "to": "Счет 74489636417521191160",
-    },
-    {
-        "id": 895315941,
-        "state": "EXECUTED",
-        "date": "2018-08-19T04:27:37.904916",
-        "operationAmount": {"amount": "56883.54", "currency": {"name": "USD", "code": "USD"}},
-        "description": "Перевод с карты на карту",
-        "from": "Visa Classic 6831982476737658",
-        "to": "Visa Platinum 8990922113665229",
-    },
-    {
-        "id": 594226727,
-        "state": "CANCELED",
-        "date": "2018-09-12T21:27:25.241689",
-        "operationAmount": {"amount": "67314.70", "currency": {"name": "руб.", "code": "RUB"}},
-        "description": "Перевод организации",
-        "from": "Visa Platinum 1246377376343588",
-        "to": "Счет 14211924144426031657",
-    },
-]
-
-usd_transactions = filter_by_currency(transactions, "USD")
-for _ in range(2):
-    print(next(usd_transactions))
-
+# transactions = [{'id': 285353808, 'state': 'EXECUTED', 'date': '2018-08-06T16:22:54.643491', 'description': 'Открытие вклада', 'to': 'Счет 12189246980267075758', 'amount': '82946.19', 'currency_name': 'руб.', 'currency_code': 'RUB'}, {'id': 416017997, 'state': 'EXECUTED', 'date': '2019-05-07T01:32:37.142797', 'description': 'Перевод с карты на карту', 'from': 'МИР 4878656375033856', 'to': 'Maestro 6890749237669619', 'amount': '29033.65', 'currency_name': 'USD', 'currency_code': 'USD'}, {'id': 556488059, 'state': 'CANCELED', 'date': '2019-05-17T01:50:00.166954', 'description': 'Перевод с карты на карту', 'from': 'МИР 8021883699486544', 'to': 'Visa Gold 8702717057933248', 'amount': '74604.56', 'currency_name': 'USD', 'currency_code': 'USD'}, {'id': 74897425, 'state': 'EXECUTED', 'date': '2019-02-08T09:09:35.038506', 'description': 'Перевод организации', 'from': 'Счет 28429442875257789335', 'to': 'Счет 95473010446151855633', 'amount': '62654.30', 'currency_name': 'USD', 'currency_code': 'USD'}, {'id': 636137913, 'state': 'EXECUTED', 'date': '2019-06-16T22:17:01.825020', 'description': 'Перевод с карты на счет', 'from': 'Visa Platinum 8990850370884895', 'to': 'Счет 15574304810835774010', 'amount': '24260.78', 'currency_name': 'USD', 'currency_code': 'USD'}, {'id': 813238385, 'state': 'EXECUTED', 'date': '2018-05-04T03:29:30.253483', 'description': 'Перевод с карты на счет', 'from': 'MasterCard 3595832182277400', 'to': 'Счет 79697233246085035210', 'amount': '22007.02', 'currency_name': 'USD', 'currency_code': 'USD'}, {'id': 854048120, 'state': 'EXECUTED', 'date': '2019-03-29T10:57:20.635567', 'description': 'Перевод с карты на счет', 'from': 'Visa Classic 1203921041964079', 'to': 'Счет 34616199494072692721', 'amount': '30234.99', 'currency_name': 'USD', 'currency_code': 'USD'}, {'id': 269462132, 'state': 'EXECUTED', 'date': '2018-08-14T05:42:30.104666', 'description': 'Перевод со счета на счет', 'from': 'Счет 18125798580985711166', 'to': 'Счет 98841213648056852372', 'amount': '19010.50', 'currency_name': 'руб.', 'currency_code': 'RUB'}, {'id': 692008409, 'state': 'CANCELED', 'date': '2019-02-14T17:38:09.910336', 'description': 'Перевод организации', 'from': 'Visa Classic 4610247282706784', 'to': 'Счет 63229171188548882700', 'amount': '37044.95', 'currency_name': 'руб.', 'currency_code': 'RUB'}, {'id': 431131847, 'state': 'EXECUTED', 'date': '2018-05-05T01:38:56.538074', 'description': 'Перевод с карты на счет', 'from': 'MasterCard 9454780748494532', 'to': 'Счет 51958934737718181351', 'amount': '56071.02', 'currency_name': 'руб.', 'currency_code': 'RUB'}, {'id': 15948212, 'state': 'EXECUTED', 'date': '2018-12-23T11:47:52.403285', 'description': 'Перевод с карты на карту', 'from': 'МИР 8665240839126074', 'to': 'Maestro 3000704277834087', 'amount': '47408.20', 'currency_name': 'USD', 'currency_code': 'USD'}, {'id': 114832369, 'state': 'EXECUTED', 'date': '2019-12-07T06:17:14.634890', 'description': 'Перевод организации', 'from': 'Visa Classic 2842878893689012', 'to': 'Счет 35158586384610753655', 'amount': '48150.39', 'currency_name': 'USD', 'currency_code': 'USD'}, {'id': 176798279, 'state': 'CANCELED', 'date': '2019-04-18T11:22:18.800453', 'description': 'Открытие вклада', 'to': 'Счет 90417871337969064865', 'amount': '73778.48', 'currency_name': 'руб.', 'currency_code': 'RUB'}, {'id': 482520625, 'state': 'EXECUTED', 'date': '2019-11-13T17:38:04.800051', 'description': 'Перевод со счета на счет', 'from': 'Счет 38611439522855669794', 'to': 'Счет 46765464282437878125', 'amount': '62814.53', 'currency_name': 'руб.', 'currency_code': 'RUB'}, {'id': 414894334, 'state': 'EXECUTED', 'date': '2019-06-30T15:11:53.136004', 'description': 'Перевод со счета на счет', 'from': 'Счет 59956820797131895975', 'to': 'Счет 43475624104328495820', 'amount': '95860.47', 'currency_name': 'руб.', 'currency_code': 'RUB'}, {'amount': None, 'currency_name': None, 'currency_code': None}, {'id': 509552992, 'state': 'EXECUTED', 'date': '2019-04-19T12:02:30.129240', 'description': 'Перевод с карты на карту', 'from': 'Maestro 9171987821259925', 'to': 'МИР 2052809263194182', 'amount': '81513.74', 'currency_name': 'руб.', 'currency_code': 'RUB'}, {'id': 596914981, 'state': 'EXECUTED', 'date': '2018-04-16T17:34:19.241289', 'description': 'Перевод организации', 'from': 'Visa Platinum 1813166339376336', 'to': 'Счет 97848259954268659635', 'amount': '65169.27', 'currency_name': 'USD', 'currency_code': 'USD'}, {'id': 200634844, 'state': 'CANCELED', 'date': '2018-02-13T04:43:11.374324', 'description': 'Перевод организации', 'from': 'Счет 33355011456314142963', 'to': 'Счет 45735917297559088682', 'amount': '42210.20', 'currency_name': 'руб.', 'currency_code': 'RUB'}, {'id': 879660146, 'state': 'EXECUTED', 'date': '2018-07-22T07:42:32.953324', 'description': 'Перевод организации', 'from': 'Счет 19628854383215954147', 'to': 'Счет 90887717138446397473', 'amount': '92130.50', 'currency_name': 'USD', 'currency_code': 'USD'}, {'id': 893507143, 'state': 'EXECUTED', 'date': '2018-02-03T07:16:28.366141', 'description': 'Открытие вклада', 'to': 'Счет 37653295304860108767', 'amount': '90297.21', 'currency_name': 'руб.', 'currency_code': 'RUB'}, {'id': 710136990, 'state': 'CANCELED', 'date': '2018-08-17T03:57:28.607101', 'description': 'Перевод организации', 'from': 'Maestro 1913883747791351', 'to': 'Счет 11492155674319392427', 'amount': '66906.45', 'currency_name': 'USD', 'currency_code': 'USD'}, {'id': 390558607, 'state': 'EXECUTED', 'date': '2019-02-12T00:08:07.524972', 'description': 'Перевод организации', 'from': 'Счет 72645194281643232984', 'to': 'Счет 95782287258966264115', 'amount': '16796.95', 'currency_name': 'USD', 'currency_code': 'USD'}, {'id': 902831954, 'state': 'EXECUTED', 'date': '2018-04-22T17:01:46.885252', 'description': 'Перевод организации', 'from': 'Visa Platinum 3530191547567121', 'to': 'Счет 46878338893256147528', 'amount': '84732.61', 'currency_name': 'руб.', 'currency_code': 'RUB'}, {'id': 86608620, 'state': 'EXECUTED', 'date': '2019-08-16T04:23:41.621065', 'description': 'Перевод с карты на счет', 'from': 'MasterCard 8826230888662405', 'to': 'Счет 96119739109420349721', 'amount': '6004.00', 'currency_name': 'руб.', 'currency_code': 'RUB'}, {'id': 232222017, 'state': 'EXECUTED', 'date': '2018-07-06T22:32:10.495465', 'description': 'Перевод с карты на карту', 'from': 'Visa Classic 4062745111784804', 'to': 'Maestro 8602249654751155', 'amount': '37160.27', 'currency_name': 'руб.', 'currency_code': 'RUB'}, {'id': 280743947, 'state': 'EXECUTED', 'date': '2018-09-27T14:26:24.629306', 'description': 'Перевод организации', 'from': 'Счет 23177857685058835559', 'to': 'Счет 56363465303962313778', 'amount': '45653.70', 'currency_name': 'руб.', 'currency_code': 'RUB'}, {'id': 185048835, 'state': 'EXECUTED', 'date': '2019-05-06T00:17:42.736209', 'description': 'Перевод со счета на счет', 'from': 'Счет 27921306202254867520', 'to': 'Счет 49884962711830774470', 'amount': '74895.83', 'currency_name': 'руб.', 'currency_code': 'RUB'}, {'id': 422035015, 'state': 'EXECUTED', 'date': '2019-02-27T03:59:25.921176', 'description': 'Перевод с карты на счет', 'from': 'MasterCard 8847384717023026', 'to': 'Счет 85458008326755993377', 'amount': '69311.35', 'currency_name': 'руб.', 'currency_code': 'RUB'}, {'id': 917824439, 'state': 'EXECUTED', 'date': '2019-07-18T12:27:13.355343', 'description': 'Перевод с карты на карту', 'from': 'Visa Platinum 6942697754917688', 'to': 'МИР 2956603572573342', 'amount': '82139.20', 'currency_name': 'руб.', 'currency_code': 'RUB'}, {'id': 121646999, 'state': 'CANCELED', 'date': '2018-06-08T16:14:59.936274', 'description': 'Перевод организации', 'from': 'Maestro 7552745726849311', 'to': 'Счет 34799481846914116850', 'amount': '91121.62', 'currency_name': 'руб.', 'currency_code': 'RUB'}, {'id': 816266176, 'state': 'CANCELED', 'date': '2018-06-24T00:46:32.422648', 'description': 'Перевод организации', 'from': 'МИР 6381702861749111', 'to': 'Счет 27804394774631586026', 'amount': '60030.73', 'currency_name': 'USD', 'currency_code': 'USD'}, {'id': 736942989, 'state': 'EXECUTED', 'date': '2019-09-06T00:48:01.081967', 'description': 'Перевод организации', 'from': 'Visa Gold 3654412434951162', 'to': 'Счет 59986621134048778289', 'amount': '6357.56', 'currency_name': 'USD', 'currency_code': 'USD'}, {'id': 580054042, 'state': 'EXECUTED', 'date': '2018-06-20T03:59:34.851630', 'description': 'Перевод с карты на счет', 'from': 'МИР 3766446452238784', 'to': 'Счет 86655182730188443980', 'amount': '96350.51', 'currency_name': 'USD', 'currency_code': 'USD'}, {'id': 619287771, 'state': 'EXECUTED', 'date': '2019-08-19T16:30:41.967497', 'description': 'Перевод организации', 'from': 'Счет 17691325653939384901', 'to': 'Счет 49304996510329747621', 'amount': '81150.87', 'currency_name': 'USD', 'currency_code': 'USD'}, {'id': 490100847, 'state': 'EXECUTED', 'date': '2018-12-22T02:02:49.564873', 'description': 'Перевод с карты на карту', 'from': 'Visa Gold 8326537236216459', 'to': 'MasterCard 6783917276771847', 'amount': '56516.63', 'currency_name': 'USD', 'currency_code': 'USD'}, {'id': 179194306, 'state': 'EXECUTED', 'date': '2019-05-19T12:51:49.023880', 'description': 'Перевод организации', 'from': 'МИР 5211277418228469', 'to': 'Счет 58518872592028002662', 'amount': '6381.58', 'currency_name': 'USD', 'currency_code': 'USD'}, {'id': 27192367, 'state': 'CANCELED', 'date': '2018-12-24T20:16:18.819037', 'description': 'Перевод со счета на счет', 'from': 'Счет 71687416928274675290', 'to': 'Счет 87448526688763159781', 'amount': '991.49', 'currency_name': 'руб.', 'currency_code': 'RUB'}, {'id': 921286598, 'state': 'EXECUTED', 'date': '2018-03-09T23:57:37.537412', 'description': 'Перевод организации', 'from': 'Счет 26406253703545413262', 'to': 'Счет 20735820461482021315', 'amount': '25780.71', 'currency_name': 'руб.', 'currency_code': 'RUB'}, {'id': 207126257, 'state': 'EXECUTED', 'date': '2019-07-15T11:47:40.496961', 'description': 'Открытие вклада', 'to': 'Счет 35737585785074382265', 'amount': '92688.46', 'currency_name': 'USD', 'currency_code': 'USD'}, {'id': 957763565, 'state': 'EXECUTED', 'date': '2019-01-05T00:52:30.108534', 'description': 'Перевод со счета на счет', 'from': 'Счет 46363668439560358409', 'to': 'Счет 18889008294666828266', 'amount': '87941.37', 'currency_name': 'руб.', 'currency_code': 'RUB'}, {'id': 667307132, 'state': 'EXECUTED', 'date': '2019-07-13T18:51:29.313309', 'description': 'Перевод с карты на счет', 'from': 'Maestro 1308795367077170', 'to': 'Счет 96527012349577388612', 'amount': '97853.86', 'currency_name': 'руб.', 'currency_code': 'RUB'}]
+#
+# usd_transactions = filter_by_currency(transactions, "USD")
+# for _ in range(2):
+#     print(next(usd_transactions))
+#
 
 def transaction_descriptions(transactions_list: list[dict]) -> Iterator:
     """Функция возвращает описание каждой операции по очереди"""
     for description in transactions_list:
-        yield description["description"]
+        yield description.get("description", "")
 
-
-descriptions = transaction_descriptions(transactions)
-for _ in range(5):
-    print(next(descriptions))
-
+#
+# descriptions = transaction_descriptions(transactions)
+# for _ in range(5):
+#     print(next(descriptions))
+#
 
 def card_number_generator(start: int, stop: int) -> Iterator:
     """Функция генерирует номера карт в диапазоне от 0000 0000 0000 0001 до 9999 9999 9999 9999."""
@@ -81,5 +35,5 @@ def card_number_generator(start: int, stop: int) -> Iterator:
         ] + " " + f"{number:016d}"[12:16]
 
 
-for card_number in card_number_generator(1, 5):
-    print(card_number)
+# for card_number in card_number_generator(1, 5):
+#     print(card_number)

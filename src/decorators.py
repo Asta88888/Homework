@@ -41,10 +41,10 @@ def log(filename: Optional[str] = None) -> Callable:
     return decorator
 
 
-if __name__ == "__main__":
-
-    @log(filename="mylog.txt")
-    def my_function(x: int, y: int) -> int:
-        return x + y
-
-    print(my_function(1, 2))
+# if __name__ == "__main__":
+#
+#     @log(filename="mylog.txt")
+#     def my_function(x: int, y: int) -> int:
+#         return x + y
+#
+#     print(my_function(1, 2))
