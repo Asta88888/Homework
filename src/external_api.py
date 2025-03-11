@@ -14,8 +14,8 @@ def conversion(transaction: dict) -> float:
     для получения текущего курса валют и конвертации суммы
     операции в рубли в рублях"""
     amount = 0
-    currency = transaction["operationAmount"]["currency"]["code"]
-    amount_transaction = transaction["operationAmount"]["amount"]
+    currency = transaction.get("currency_code")
+    amount_transaction = transaction.get("amount")
     payload = {"amount": f"{amount_transaction}", "from": f"{currency}", "to": "RUB"}
     headers = {"apikey": f"{API_KEY}"}
     if currency != "RUB":
@@ -32,19 +32,18 @@ def conversion(transaction: dict) -> float:
         except requests.exceptions.RequestException:
             print("Ошибка конвертации")
     else:
-        amount += float(transaction["operationAmount"]["amount"])
+        amount += float(transaction.get("amount"))
     return amount
 
 
-transactions = {'id': 490100847, 'state':
-                   'EXECUTED', 'date': '2018-12-22T02:02:49.564873',
-                   'operationAmount': {'amount': '56516.63',
-                   'currency': {'name': 'USD', 'code': 'USD'}},
-                   'description': 'Перевод с карты на карту',
-                   'from': 'Visa Gold 8326537236216459',
-                   'to': 'MasterCard 6783917276771847'}
-
-
-if __name__ == "__main__":
-    transaction_amount = conversion(transactions)
-    print(transaction_amount)
+# transactions = {'id': 957763565, 'state': 'EXECUTED',
+#                 'date': '2019-01-05T00:52:30.108534',
+#                 'description': 'Перевод со счета на счет',
+#                 'from': 'Счет 46363668439560358409',
+#                 'to': 'Счет 18889008294666828266', 'amount': '87941.37',
+#                 'currency_name': 'руб.', 'currency_code': 'RUB'}
+#
+#
+# if __name__ == "__main__":
+#     transaction_amount = conversion(transactions)
+#     print(transaction_amount)
